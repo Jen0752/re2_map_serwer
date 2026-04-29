@@ -1,0 +1,253 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>RE2 战术地图 - 筛选抽屉</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Noto+Sans+SC:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f4f0ef",
+                        "on-secondary-fixed-variant": "#004c6e",
+                        "on-primary-container": "#747676",
+                        "secondary-container": "#39b8fd",
+                        "outline": "#747878",
+                        "on-secondary-fixed": "#001e2f",
+                        "on-background": "#1c1b1b",
+                        "secondary-fixed-dim": "#89ceff",
+                        "on-surface": "#1c1b1b",
+                        "surface-variant": "#e5e2e1",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "tertiary-container": "#ffffff",
+                        "primary": "#5d5f5f",
+                        "on-tertiary-container": "#747676",
+                        "secondary": "#006591",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#1a1c1c",
+                        "inverse-primary": "#c6c6c7",
+                        "background": "#fcf8f8",
+                        "secondary-fixed": "#c9e6ff",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#5d5f5f",
+                        "outline-variant": "#c4c7c8",
+                        "surface-dim": "#ddd9d9",
+                        "surface-bright": "#fcf8f8",
+                        "on-surface-variant": "#444748",
+                        "tertiary-fixed": "#e2e2e2",
+                        "surface-container-high": "#ebe7e7",
+                        "primary-fixed-dim": "#c6c6c7",
+                        "surface-container-low": "#f6f3f2",
+                        "surface-container": "#f1edec",
+                        "surface": "#fcf8f8",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "primary-container": "#ffffff",
+                        "on-secondary-container": "#004666",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#5d5f5f",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#313030",
+                        "primary-fixed": "#e2e2e2",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-primary-fixed-variant": "#454747",
+                        "error": "#ba1a1a"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "margin-edge": "24px",
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "panel-width": "320px",
+                        "gutter": "16px",
+                        "stack-xs": "4px",
+                        "stack-md": "16px",
+                        "unit": "4px"
+                    },
+                    fontFamily: {
+                        "label-caps": ["Noto Sans SC", "Space Grotesk"],
+                        "h1-heading": ["Noto Sans SC", "Space Grotesk"],
+                        "display-map": ["Noto Sans SC", "Space Grotesk"],
+                        "body-main": ["Noto Sans SC", "Inter"],
+                        "h2-subheading": ["Noto Sans SC", "Space Grotesk"],
+                        "mono-data": ["Space Grotesk"],
+                        "body-sm": ["Noto Sans SC", "Inter"]
+                    },
+                    fontSize: {
+                        "label-caps": ["11px", { lineHeight: "1", letterSpacing: "0.08em", fontWeight: "600" }],
+                        "h1-heading": ["24px", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "500" }],
+                        "display-map": ["48px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "300" }],
+                        "body-main": ["15px", { lineHeight: "1.6", letterSpacing: "0.01em", fontWeight: "400" }],
+                        "h2-subheading": ["18px", { lineHeight: "1.4", fontWeight: "500" }],
+                        "mono-data": ["12px", { lineHeight: "1", letterSpacing: "0.02em", fontWeight: "400" }],
+                        "body-sm": ["13px", { lineHeight: "1.5", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-surface-dim flex items-center justify-center min-h-screen p-4">
+<!-- Mobile Device Simulator Wrapper -->
+<div class="w-full max-w-[390px] h-[844px] bg-background relative overflow-hidden shadow-2xl rounded-[40px] border-[8px] border-surface-container-highest ring-1 ring-outline-variant">
+<!-- BASE MAP LAYER (Obscured) -->
+<div class="absolute inset-0 z-0">
+<!-- Map Background Image -->
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Raccoon City Police Department Blueprint" style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuAUs27mXLBPX5cIzLbvU7wLL2jGK7Lnw_2Qk-0L3fUx4r_OZpMp6hC4dktoxY1Ouvu05vOd3aQo9TjIz8vUQ2Nm5SSkhFq2wFVQ4hkacgl5wJ53lQvKyWAvbblY3IphquiztF3x5FOqX1dW02AArgUDufk1uzOZNifvqutqnv0b7QGlRi5cQKRwJgP0ya-R8zzYRazNKcnzonurfBxVi-H1Evxi0gUjIqMbqMCu6smBfCLYIHCiiAZg7567_cUCQIeW8TIM0OrOA19J&quot;);"></div>
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 h-12 bg-white/80 backdrop-blur-md border-b-[1px] border-slate-200 absolute w-full top-0">
+<button aria-label="菜单" class="flex items-center justify-center opacity-70 scale-95 transition-transform" style="">
+<span class="material-symbols-outlined text-sky-600" style="font-variation-settings: &quot;FILL&quot; 0;">menu</span>
+</button>
+<h1 class="text-sm font-black tracking-tighter text-sky-600 font-['Space_Grotesk'] uppercase tracking-widest text-[10px] font-bold" style="">
+                    TACTICAL_MAP_V1.0
+                </h1>
+<button aria-label="设置" class="flex items-center justify-center hover:text-sky-500 transition-colors" style="">
+<span class="material-symbols-outlined text-slate-500" style="font-variation-settings: &quot;FILL&quot; 0;">settings</span>
+</button>
+</header>
+<!-- Character Toggle -->
+<div class="absolute top-[72px] left-1/2 -translate-x-1/2 z-40 bg-surface/80 backdrop-blur-md border border-outline-variant p-1 flex items-center rounded-sm shadow-sm">
+<button class="px-4 py-1.5 bg-secondary-container text-on-surface font-label-caps text-label-caps rounded-[2px] transition-colors" style="">里昂</button>
+<button class="px-4 py-1.5 text-on-surface-variant font-label-caps text-label-caps hover:bg-surface-container transition-colors" style="">克莱尔</button>
+</div>
+<!-- Floor Navigation -->
+<div class="absolute bottom-[96px] right-margin-edge z-40 flex flex-col gap-unit bg-surface/80 backdrop-blur-md border border-outline-variant p-1 rounded-sm shadow-sm">
+<button class="w-8 h-8 flex items-center justify-center text-on-surface-variant font-mono-data text-mono-data hover:bg-surface-container transition-colors" style="">4F</button>
+<button class="w-8 h-8 flex items-center justify-center text-on-surface-variant font-mono-data text-mono-data hover:bg-surface-container transition-colors" style="">3F</button>
+<button class="w-8 h-8 flex items-center justify-center text-on-surface-variant font-mono-data text-mono-data hover:bg-surface-container transition-colors" style="">2F</button>
+<button class="w-8 h-8 flex items-center justify-center bg-secondary-container text-on-surface font-mono-data text-mono-data border-l-2 border-primary transition-colors" style="">1F</button>
+<button class="w-8 h-8 flex items-center justify-center text-on-surface-variant font-mono-data text-mono-data hover:bg-surface-container transition-colors" style="">B1</button>
+<button class="w-8 h-8 flex items-center justify-center text-on-surface-variant font-mono-data text-mono-data hover:bg-surface-container transition-colors" style="">B2</button>
+<button class="w-8 h-8 flex items-center justify-center text-on-surface-variant font-mono-data text-mono-data hover:bg-surface-container transition-colors" style="">B3</button>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 px-4 pb-safe bg-white/90 backdrop-blur-xl border-t-[1px] border-slate-200 absolute w-full bottom-0">
+<button class="text-sky-600 flex flex-col items-center gap-1 scale-90 transition-transform" style="">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">map</span>
+<span class="font-['Noto_Sans_SC'] uppercase text-[9px] font-bold" style="">地图</span>
+</button>
+<button class="text-slate-400 flex flex-col items-center gap-1 hover:text-slate-900 transition-colors" style="">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">analytics</span>
+<span class="font-['Noto_Sans_SC'] uppercase text-[9px] font-bold" style="">情报</span>
+</button>
+<button class="text-slate-400 flex flex-col items-center gap-1 hover:text-slate-900 transition-colors" style="">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">monitoring</span>
+<span class="font-['Noto_Sans_SC'] uppercase text-[9px] font-bold" style="">状态</span>
+</button>
+<button class="text-slate-400 flex flex-col items-center gap-1 hover:text-slate-900 transition-colors" style="">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">sensors</span>
+<span class="font-['Noto_Sans_SC'] uppercase text-[9px] font-bold" style="">通信</span>
+</button>
+</nav>
+</div>
+<!-- OVERLAY -->
+<div aria-hidden="true" class="absolute inset-0 bg-surface/70 backdrop-blur-sm z-[55]"></div>
+<!-- NAVIGATION DRAWER -->
+<aside class="fixed left-0 top-0 h-full z-[60] py-4 bg-white border-r-[1px] border-slate-200 w-80 absolute flex flex-col shadow-[24px_0_48px_-12px_rgba(0,0,0,0.1)]">
+<!-- Drawer Header -->
+<div class="px-6 mb-stack-lg mt-stack-sm flex items-center justify-between">
+<h2 class="text-lg font-bold text-slate-900 font-['Noto_Sans_SC'] tracking-tight" style="">筛选标点</h2>
+<button aria-label="关闭筛选" class="text-on-surface-variant hover:text-on-surface" style="">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">close</span>
+</button>
+</div>
+<!-- Global Action -->
+<div class="px-6 mb-stack-md flex gap-stack-sm">
+<button class="flex-1 py-2 border border-outline-variant text-on-surface font-label-caps text-label-caps hover:bg-surface-container transition-colors uppercase" style="">全部开启</button>
+<button class="flex-1 py-2 border border-outline-variant text-on-surface font-label-caps text-label-caps hover:bg-surface-container transition-colors uppercase" style="">全部关闭</button>
+</div>
+<!-- Drawer Items List -->
+<div class="flex-1 overflow-y-auto hide-scrollbar flex flex-col gap-1 px-3">
+<!-- Active Item -->
+<button class="w-full flex items-center gap-4 px-3 py-3 rounded-sm bg-sky-50 text-sky-600 border-l-[4px] border-sky-500 font-bold focus:ring-0 focus:outline-none transition-all duration-200" style="">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">key</span>
+<span class="font-['Noto_Sans_SC'] uppercase text-[11px] font-medium tracking-tight text-left flex-1" style="">流程道具</span>
+<div class="w-4 h-4 rounded-sm border border-sky-500 flex items-center justify-center bg-sky-500">
+<span class="material-symbols-outlined text-[12px] text-white" style="font-variation-settings: &quot;FILL&quot; 1;">check</span>
+</div>
+</button>
+<!-- Items -->
+<button class="w-full flex items-center gap-4 px-3 py-3 rounded-sm text-slate-600 hover:bg-slate-50 hover:pl-2 transition-all duration-200 border-l-[4px] border-transparent focus:ring-0 focus:outline-none" style="">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">swords</span>
+<span class="font-['Noto_Sans_SC'] uppercase text-[11px] font-medium tracking-tight text-left flex-1" style="">敌人</span>
+<div class="w-4 h-4 rounded-sm border border-outline-variant flex items-center justify-center"></div>
+</button>
+<button class="w-full flex items-center gap-4 px-3 py-3 rounded-sm text-slate-600 hover:bg-slate-50 hover:pl-2 transition-all duration-200 border-l-[4px] border-transparent focus:ring-0 focus:outline-none" style="">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">deployed_code</span>
+<span class="font-['Noto_Sans_SC'] uppercase text-[11px] font-medium tracking-tight text-left flex-1" style="">流程指引</span>
+<div class="w-4 h-4 rounded-sm border border-outline-variant flex items-center justify-center"></div>
+</button>
+<button class="w-full flex items-center gap-4 px-3 py-3 rounded-sm text-slate-600 hover:bg-slate-50 hover:pl-2 transition-all duration-200 border-l-[4px] border-transparent focus:ring-0 focus:outline-none" style="">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">psychiatry</span>
+<span class="font-['Noto_Sans_SC'] uppercase text-[11px] font-medium tracking-tight text-left flex-1" style="">存档</span>
+<div class="w-4 h-4 rounded-sm border border-sky-500 flex items-center justify-center bg-sky-500">
+<span class="material-symbols-outlined text-[12px] text-white" style="font-variation-settings: &quot;FILL&quot; 1;">check</span>
+</div>
+</button>
+<button class="w-full flex items-center gap-4 px-3 py-3 rounded-sm text-slate-600 hover:bg-slate-50 hover:pl-2 transition-all duration-200 border-l-[4px] border-transparent focus:ring-0 focus:outline-none" style="">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">description</span>
+<span class="font-['Noto_Sans_SC'] uppercase text-[11px] font-medium tracking-tight text-left flex-1" style="">收集品</span>
+<div class="w-4 h-4 rounded-sm border border-outline-variant flex items-center justify-center"></div>
+</button>
+<button class="w-full flex items-center gap-4 px-3 py-3 rounded-sm text-slate-600 hover:bg-slate-50 hover:pl-2 transition-all duration-200 border-l-[4px] border-transparent focus:ring-0 focus:outline-none" style="">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">inventory_2</span>
+<span class="font-['Noto_Sans_SC'] uppercase text-[11px] font-medium tracking-tight text-left flex-1" style="">投掷物</span>
+<div class="w-4 h-4 rounded-sm border border-outline-variant flex items-center justify-center"></div>
+</button>
+<button class="w-full flex items-center gap-4 px-3 py-3 rounded-sm text-slate-600 hover:bg-slate-50 hover:pl-2 transition-all duration-200 border-l-[4px] border-transparent focus:ring-0 focus:outline-none" style="">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">shield</span>
+<span class="font-['Noto_Sans_SC'] uppercase text-[11px] font-medium tracking-tight text-left flex-1" style="">子弹</span>
+<div class="w-4 h-4 rounded-sm border border-outline-variant flex items-center justify-center"></div>
+</button>
+<button class="w-full flex items-center gap-4 px-3 py-3 rounded-sm text-slate-600 hover:bg-slate-50 hover:pl-2 transition-all duration-200 border-l-[4px] border-transparent focus:ring-0 focus:outline-none" style="">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">build</span>
+<span class="font-['Noto_Sans_SC'] uppercase text-[11px] font-medium tracking-tight text-left flex-1" style="">门</span>
+<div class="w-4 h-4 rounded-sm border border-outline-variant flex items-center justify-center"></div>
+</button>
+<button class="w-full flex items-center gap-4 px-3 py-3 rounded-sm text-slate-600 hover:bg-slate-50 hover:pl-2 transition-all duration-200 border-l-[4px] border-transparent focus:ring-0 focus:outline-none" style="">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">paid</span>
+<span class="font-['Noto_Sans_SC'] uppercase text-[11px] font-medium tracking-tight text-left flex-1" style="">地图指引</span>
+<div class="w-4 h-4 rounded-sm border border-outline-variant flex items-center justify-center"></div>
+</button>
+<button class="w-full flex items-center gap-4 px-3 py-3 rounded-sm text-slate-600 hover:bg-slate-50 hover:pl-2 transition-all duration-200 border-l-[4px] border-transparent focus:ring-0 focus:outline-none" style="">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">assignment</span>
+<span class="font-['Noto_Sans_SC'] uppercase text-[11px] font-medium tracking-tight text-left flex-1" style="">武器</span>
+<div class="w-4 h-4 rounded-sm border border-outline-variant flex items-center justify-center"></div>
+</button>
+<!-- Spacer -->
+<div class="h-8"></div>
+</div>
+<!-- Bottom Action Panel -->
+<div class="mt-auto px-6 pt-4 border-t border-slate-200">
+<button class="w-full bg-secondary-container text-on-surface h-[40px] flex items-center justify-center font-label-caps text-label-caps rounded-sm hover:brightness-95 transition-all uppercase" style="">
+                    应用筛选
+                </button>
+</div>
+</aside>
+</div>
+</body></html>

@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//d/claude/resident evil 2（2019）map/**)",
+      "Bash(dir \"d:\\\\claude\\\\resident evil 2（2019）map\\\\\" 2>/dev/null)",
+      "Read(//d/claude/.claude/**)"
+    ]
+  }
+}
