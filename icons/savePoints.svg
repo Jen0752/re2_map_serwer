@@ -1,0 +1,7 @@
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 存档图标 - 软盘 -->
+  <rect x="6" y="10" width="36" height="28" rx="2" stroke="#000" stroke-width="1"/>
+  <rect x="10" y="14" width="20" height="16" stroke="#000" stroke-width="1"/>
+  <path d="M30 14 L30 30 L36 30 L30 22 L30 30" stroke="#000" stroke-width="1" fill="none"/>
+  <rect x="14" y="34" width="12" height="4" stroke="#000" stroke-width="1"/>
+</svg>
