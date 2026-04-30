@@ -1,0 +1,12 @@
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 医疗箱图标 -->
+  <rect x="8" y="14" width="32" height="24" rx="2" stroke="#000" stroke-width="1"/>
+  <rect x="20" y="14" width="8" height="24" stroke="#000" stroke-width="1"/>
+  <rect x="8" y="22" width="32" height="8" stroke="#000" stroke-width="1"/>
+  <line x1="24" y1="14" x2="24" y2="38" stroke="#000" stroke-width="1"/>
+  <line x1="8" y1="26" x2="40" y2="26" stroke="#000" stroke-width="1"/>
+  <line x1="20" y1="14" x2="20" y2="22" stroke="#000" stroke-width="1"/>
+  <line x1="28" y1="14" x2="28" y2="22" stroke="#000" stroke-width="1"/>
+  <line x1="20" y1="26" x2="20" y2="38" stroke="#000" stroke-width="1"/>
+  <line x1="28" y1="26" x2="28" y2="38" stroke="#000" stroke-width="1"/>
+</svg>

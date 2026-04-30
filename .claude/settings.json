@@ -3,7 +3,18 @@
     "allow": [
       "Read(//d/claude/resident evil 2（2019）map/**)",
       "Bash(dir \"d:\\\\claude\\\\resident evil 2（2019）map\\\\\" 2>/dev/null)",
-      "Read(//d/claude/.claude/**)"
+      "Read(//d/claude/.claude/**)",
+      "Bash(npm create *)",
+      "Bash(npm install *)",
+      "Bash(npm search *)",
+      "Bash(npx tailwindcss *)",
+      "Bash(node ./node_modules/tailwindcss/lib/cli.js init -p)",
+      "Bash(npm list *)",
+      "Bash(npm run *)"
+    ],
+    "additionalDirectories": [
+      "D:\\claude\\re2_map_sewer\\re2-sewer-map\\re2_sewer_pic",
+      "D:\\claude\\re2_map_sewer\\re2-sewer-map\\src\\assets\\icons"
     ]
   }
 }

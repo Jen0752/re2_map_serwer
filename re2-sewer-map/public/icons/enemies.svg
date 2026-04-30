@@ -1,0 +1,5 @@
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 敌人图标 - 三角形警告 -->
+  <path d="M24 6 L42 40 L6 40 Z" stroke="#000" stroke-width="1" fill="none"/>
+  <text x="24" y="32" text-anchor="middle" font-size="14" font-weight="bold" fill="#000">!</text>
+</svg>
